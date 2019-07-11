@@ -13,8 +13,9 @@ class AuthenticateUser
   attr_reader :username, :password
 
   def user
-    user ||= User.find_by(username: username)
-    return user if user && user.authenticate(password)
-    { error: 'Invalid credentials' }
+    @user ||= User.find_by(username: username)
+    return @user if @user && @user.authenticate(password)
+
+    raise ExceptionHandler::AuthenticationError, 'Invalid credentials'
   end
 end

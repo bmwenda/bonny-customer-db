@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, except: :create
+  skip_before_action :authorize_request, only: :create
 
   def create
     @user = User.new(user_params)
@@ -14,19 +14,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    if user
-      render json: user
-    else
-      not_found
-    end
+    render json: user
   end
 
   private
 
   def user
     @user ||= User.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    nil
   end
 
   def user_params

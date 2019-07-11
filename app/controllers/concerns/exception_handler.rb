@@ -12,12 +12,12 @@ module ExceptionHandler
 
   private
 
-  def unauthenticated(error)
-    render json: { message: error.message }, status: :unauthorized
-  end
-
   def not_found(error)
     render json: { message: error.message }, status: :not_found
+  end
+
+  def unauthenticated(error)
+    render json: { message: error.message }, status: :unauthorized
   end
 
   def bad_request(error)

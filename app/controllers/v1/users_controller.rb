@@ -5,24 +5,19 @@ module V1
     def create
       @user = User.new(user_params)
       if @user.save
-        token = AuthenticateUser.new(@user.username, @user.password).generate_token
-        render json: { token: token }, status: :created
+        @token = AuthenticateUser.new(@user.username, @user.password).generate_token
+        render :create, status: :created
       else
-        render json: {
-          message: { errors: @user.errors.full_messages }
-        }, status: :unprocessable_entity
+        render :create, status: :unprocessable_entity
       end
     end
 
     def show
-      render json: user
+      @user ||= User.find(params[:id])
+      render :show, status: :ok
     end
 
     private
-
-    def user
-      @user ||= User.find(params[:id])
-    end
 
     def user_params
       params.permit(

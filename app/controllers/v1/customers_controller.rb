@@ -1,7 +1,8 @@
 module V1
   class CustomersController < ApplicationController
     def create
-      CsvParser.new.parse
+      SaveCustomersJob.perform_later
+      render json: { message: 'Customers saved' }, status: :ok
     end
   end
 end

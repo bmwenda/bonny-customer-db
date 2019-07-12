@@ -1,20 +1,23 @@
 class SubscribeCustomerJob < ApplicationJob
   queue_as :default
 
+  # TODO
+  # Mirror Mailchimp API by mocking API requests and returning dynamic response
+
   def perform(customer)
-    body = {
+    request_body = {
       "members": [
         {
-          "email_address": customer,
+          "email_address": 'example@email.com',
           "status": "subscribed"
         }
       ],
       "update_existing": true
     }
 
-    puts "NEW SUBSCRIBER! #{customer.name}"
+    # WIP: Replace API call with stub to avoid making external requests
 
-    # response = Faraday.post("#{base_url}/lists/#{list_id}", body.to_json, headers)
+    # response = Faraday.post("#{base_url}/lists/#{list_id}", request_body.to_json, headers)
     # JSON.parse(response.body)
   end
 
@@ -35,6 +38,7 @@ class SubscribeCustomerJob < ApplicationJob
   end
 
   def response
+    # Sample response
     {
       "Customer ID": 100002528,
       "Name": "Steven",
@@ -42,22 +46,6 @@ class SubscribeCustomerJob < ApplicationJob
       "Gender": "Male",
       "Age": 34,
       "Status": "Success"
-    }
-  end
-
-  def invalid_response
-    {
-      "new_members": [],
-      "updated_members": [],
-      "errors": [
-        {
-          "email_address": "someone",
-          "error": "Please provide a valid email address."
-        }
-      ],
-      "total_created": 0,
-      "total_updated": 0,
-      "error_count": 1
     }
   end
 end

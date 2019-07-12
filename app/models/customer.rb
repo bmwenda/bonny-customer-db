@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
 
   after_create :add_customer_to_mailing_list
 
+  self.per_page = 30
+
   private
 
   def add_customer_to_mailing_list

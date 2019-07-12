@@ -25,6 +25,9 @@ gem 'faraday'
 # Use ruby jwt
 gem 'jwt'
 
+# Use will_paginate for pagination
+gem 'will_paginate', '~> 3.1.0'
+
 # Use postgres db
 gem 'pg'
 

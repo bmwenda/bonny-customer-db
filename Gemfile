@@ -28,6 +28,9 @@ gem 'jwt'
 # Use postgres db
 gem 'pg'
 
+# Use spreadsheet to parse excel files
+gem 'spreadsheet'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
